@@ -5,6 +5,9 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PaperProvider } from "react-native-paper";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -27,26 +30,46 @@ export default function RootLayout() {
     return null;
   }
 
+  const queryClient = new QueryClient();
+
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" options={{ title: "Main Page", headerShown: false }} />
-        <Stack.Screen
-          name="login"
-          options={{
-            title: "Login", // Judul halaman (opsional)
-            headerShown: false, // Sembunyikan header
-          }}
-        />
-        <Stack.Screen
-          name="modal"
-          options={{
-            presentation: "modal", // Tambahkan efek modal
-            headerShown: false, // Sembunyikan header
-          }}
-        />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <PaperProvider>
+        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+          <Stack>
+            <Stack.Screen name="index" options={{ title: "Main Page", headerShown: true }} />
+            <Stack.Screen
+              name="login"
+              options={{
+                title: "Login", // Judul halaman (opsional)
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="modal"
+              options={{
+                presentation: "modal", // Tambahkan efek modal
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="habit/index"
+              options={{
+                title: "Create",
+                headerShown: false, // Sembunyikan header
+              }}
+            />
+            <Stack.Screen
+              name="habit/[id]"
+              options={{
+                title: "Create",
+                headerShown: false,
+              }}
+            />
+          </Stack>
+          <StatusBar style="auto" />
+        </ThemeProvider>
+      </PaperProvider>
+    </QueryClientProvider>
   );
 }

@@ -1,10 +1,13 @@
+import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 const AddButton = () => {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.addButton}>
-        <Text style={styles.addButtonText}>Add</Text>
+      <TouchableOpacity style={styles.addButton} onPress={() => router.push("/habit/10")}>
+        <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
     </View>
   );
@@ -21,7 +24,7 @@ const styles = StyleSheet.create({
     bottom: 20,
     width: 60,
     height: 60,
-    backgroundColor: "blue",
+    backgroundColor: "#fff",
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
@@ -32,8 +35,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   addButtonText: {
-    color: "white",
-    fontSize: 16,
+    color: "#000",
+    fontSize: 20,
     fontWeight: "bold",
   },
 });
